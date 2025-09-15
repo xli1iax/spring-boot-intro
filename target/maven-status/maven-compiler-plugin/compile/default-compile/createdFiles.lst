@@ -1,0 +1,7 @@
+boot/repository/BookRepository.class
+boot/config/AppConfig.class
+boot/model/Book.class
+boot/repository/BookRepositoryImpl.class
+boot/service/BookServiceImpl.class
+boot/service/BookService.class
+boot/BootIntroApplication.class
