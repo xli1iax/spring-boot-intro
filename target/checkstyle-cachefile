@@ -1,4 +1,4 @@
-#Mon Sep 15 20:17:59 CEST 2025
+#Tue Sep 16 11:14:56 CEST 2025
 configuration*?=EEFF2B6B5C0ABE269ED0C41262CBDCC2127A7E3
 /Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/repository/BookRepository.java=1757958634669
 /Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/config/AppConfig.java=1757959657843
@@ -8,3 +8,4 @@ configuration*?=EEFF2B6B5C0ABE269ED0C41262CBDCC2127A7E3
 /Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/service/BookService.java=1757958634678
 /Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/service/BookServiceImpl.java=1757960156121
 /Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/resources/application.properties=1757959457773
+/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/test/resources/application.properties=1757960920798
