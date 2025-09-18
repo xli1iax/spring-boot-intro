@@ -1,5 +1,6 @@
 package boot.repository;
 
+import boot.exception.DataProcessingException;
 import boot.model.Book;
 import java.util.List;
 import org.hibernate.Session;
@@ -20,7 +21,9 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public Book save(Book book) {
         Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(book);
             transaction.commit();
@@ -28,7 +31,11 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw e;
+            throw new DataProcessingException("Could not save book: " + book, e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
         return book;
     }
@@ -38,7 +45,7 @@ public class BookRepositoryImpl implements BookRepository {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from Book", Book.class).list();
         } catch (Exception e) {
-            throw new RuntimeException("Could not find all books", e);
+            throw new DataProcessingException("Could not find all books", e);
         }
     }
 }
