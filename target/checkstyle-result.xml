@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.3">
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/dto/BookDto.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/dto/CreateBookRequestDto.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/repository/BookRepositoryImpl.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/repository/BookRepository.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/config/MapperConfig.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/mapper/BookMapper.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/BootIntroApplication.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/controller/BookControllerImpl.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/model/Book.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/service/BookServiceImpl.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/service/BookService.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/exception/EntityNotFoundException.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/exception/DataProcessingException.java">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/resources/application.properties">
+</file>
+<file name="/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/test/resources/application.properties">
+</file>
+</checkstyle>

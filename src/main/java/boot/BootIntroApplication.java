@@ -29,7 +29,6 @@ public class BootIntroApplication {
             book.setPrice(new BigDecimal("19.99"));
             book.setCoverImage("https://example.com/cover.jpg");
 
-            bookService.save(book);
             System.out.println(bookService.findAll());
         };
     }
