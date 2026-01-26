@@ -1,6 +1,6 @@
 /Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/BootIntroApplication.java
 /Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/config/MapperConfig.java
-/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/controller/BookControllerImpl.java
+/Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/controller/BookController.java
 /Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/dto/BookDto.java
 /Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/dto/CreateBookRequestDto.java
 /Users/liliazhuravel/IdeaProjects/spring-boot-intro/src/main/java/boot/exception/DataProcessingException.java

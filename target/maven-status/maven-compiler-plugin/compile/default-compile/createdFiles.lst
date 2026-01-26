@@ -2,6 +2,7 @@ boot/dto/BookDto.class
 boot/repository/BookRepositoryImpl.class
 boot/config/MapperConfig.class
 boot/exception/DataProcessingException.class
+boot/controller/BookController.class
 boot/BootIntroApplication.class
 boot/mapper/BookMapper.class
 boot/repository/BookRepository.class
@@ -9,6 +10,5 @@ boot/dto/CreateBookRequestDto.class
 boot/model/Book.class
 boot/exception/EntityNotFoundException.class
 boot/mapper/impl/BookMapperImpl.class
-boot/controller/BookControllerImpl.class
 boot/service/BookServiceImpl.class
 boot/service/BookService.class
