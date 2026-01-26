@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09548960-3882-4c3b-a88a-311f9661b213" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/boot/controller/BookControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/boot/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/boot/repository/BookRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/boot/repository/BookRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/boot/service/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/boot/service/BookServiceImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="09548960-3882-4c3b-a88a-311f9661b213" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,7 +75,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "MavenSettings",
+    "settings.editor.selected.configurable": "preferences.fileTypes",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -153,7 +148,7 @@
       <workItem from="1758279151569" duration="5700000" />
       <workItem from="1758489757330" duration="1521000" />
       <workItem from="1763158826108" duration="19000" />
-      <workItem from="1769284424701" duration="18644000" />
+      <workItem from="1769284424701" duration="18958000" />
     </task>
     <servers />
   </component>
