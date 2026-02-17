@@ -3,6 +3,7 @@ package boot.repository;
 import boot.exception.DataProcessingException;
 import boot.model.Book;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -46,6 +47,15 @@ public class BookRepositoryImpl implements BookRepository {
             return session.createQuery("from Book", Book.class).list();
         } catch (Exception e) {
             throw new DataProcessingException("Could not find all books", e);
+        }
+    }
+
+    @Override
+    public Optional<Book> findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.ofNullable(session.get(Book.class, id));
+        } catch (Exception e) {
+            throw new DataProcessingException("Could not find book with id: " + id, e);
         }
     }
 }

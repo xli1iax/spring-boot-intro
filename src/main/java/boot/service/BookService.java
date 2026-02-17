@@ -1,10 +1,13 @@
 package boot.service;
 
-import boot.model.Book;
+import boot.dto.BookDto;
+import boot.dto.CreateBookRequestDto;
 import java.util.List;
 
 public interface BookService {
-    Book save(Book book);
+    BookDto save(CreateBookRequestDto bookDto);
 
-    List<Book> findAll();
+    List<BookDto> findAll();
+
+    BookDto findById(Long id);
 }
