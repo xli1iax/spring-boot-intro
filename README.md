@@ -1,134 +1,181 @@
-# Online Book Store API
+# Online Book Store
 
-A Spring Boot backend project for an online book store.
+## Project Overview
 
-The application is being developed step by step as part of the Mate Academy Java Developer Program.  
-At the current stage, the project includes the `Book` domain model, persistence layer, service layer, DTOs, MapStruct mapping, custom exception handling, REST endpoints, database configuration, Checkstyle, and GitHub Actions CI.
+Online Book Store is a Spring Boot application for managing an online bookstore.  
+The project is being developed step by step, with each stage introducing new functionality and improving the application architecture.
 
-## Implemented Features
+The final application is planned to support user authentication, book and category management, shopping carts, orders, and role-based functionality for shoppers and administrators.
 
-- Book entity with database mapping
-- Book repository layer
-- Book service layer
-- REST controller for book operations
-- Request and response DTOs
-- MapStruct-based object mapping
-- Custom `EntityNotFoundException`
-- MySQL database configuration
-- H2 in-memory database for tests
-- Maven Checkstyle integration
-- GitHub Actions CI
-- Git branch and pull request workflow
+## Domain Model
 
-## Technologies
+The application is designed around the following domain entities:
 
-- Java 17
-- Spring Boot
-- Spring Web
-- Spring Data JPA
-- Hibernate
-- MySQL
-- H2 Database
-- MapStruct
-- Lombok
-- Maven
-- JUnit
-- Checkstyle
-- GitHub Actions
-- REST API
+- **User** — stores registered user information, including authentication details and personal data.
+- **Role** — represents a user's role in the system, such as `USER` or `ADMIN`.
+- **Book** — represents a book available in the store.
+- **Category** — represents a category to which books can belong.
+- **ShoppingCart** — represents a user's shopping cart.
+- **CartItem** — represents an individual item in a shopping cart.
+- **Order** — represents an order placed by a user.
+- **OrderItem** — represents an individual item included in an order.
 
-## Current Domain Model
+## Planned Functionality
 
-The current version implements the `Book` entity.
+### Shopper
 
-### Book Fields
+A shopper will be able to:
 
-| Field | Type | Description |
-|---|---|---|
-| `id` | `Long` | Primary key |
-| `title` | `String` | Book title, required |
-| `author` | `String` | Book author, required |
-| `isbn` | `String` | Unique ISBN, required |
-| `price` | `BigDecimal` | Book price, required |
-| `description` | `String` | Book description |
-| `coverImage` | `String` | URL of the cover image |
+- register and sign in;
+- browse the book catalog;
+- view detailed information about a specific book;
+- search for books by title;
+- browse available categories;
+- view books from a selected category;
+- add books to the shopping cart;
+- view and manage shopping cart contents;
+- place an order for the books in the cart;
+- view previous orders;
+- inspect individual items from an order.
 
-## Architecture
+### Administrator
 
-The application follows a layered architecture:
+An administrator will be able to:
 
-```text
-Controller
-    ↓
-Service
-    ↓
-Repository
-    ↓
-Database
-````
+- add new books;
+- update book information;
+- remove books;
+- create categories;
+- update categories;
+- remove categories;
+- view orders;
+- update order statuses, such as `SHIPPED` or `DELIVERED`.
 
-### Project Layers
+---
 
-* `controller` — handles HTTP requests and responses
-* `service` — contains application logic
-* `repository` — provides database access
-* `model` — contains JPA entities
-* `dto` — contains request and response DTOs
-* `mapper` — maps entities to DTOs and DTOs to entities
-* `exception` — contains custom exceptions
-* `config` — contains mapper and application configuration
+# Development Progress
 
-## DTOs
+## 1. Project Infrastructure
 
-The application uses DTOs instead of exposing entities directly.
+The project infrastructure includes:
 
-### `BookDto`
+- **Java 17**
+- **Spring Boot**
+- **Maven**
+- **Checkstyle**
+- **GitHub Actions CI**
 
-Used as a response DTO.
+Checkstyle is configured through `checkstyle.xml` and runs during the Maven build.
 
-Contains:
+GitHub Actions automatically runs the project verification process for pushes and pull requests using:
 
-* `id`
-* `title`
-* `author`
-* `isbn`
-* `price`
-* `description`
-* `coverImage`
-
-### `CreateBookRequestDto`
-
-Used as a request DTO when creating a new book.
-
-Contains:
-
-* `title`
-* `author`
-* `isbn`
-* `price`
-* `description`
-* `coverImage`
-
-## Mapping
-
-MapStruct is used to convert between:
-
-```text
-Book ↔ BookDto
-CreateBookRequestDto → Book
+```bash
+mvn --batch-mode --update-snapshots verify
 ```
 
-The mapper layer separates API data models from persistence entities.
+Development changes are organized through separate feature branches and pull requests.
 
-## API Endpoints
+---
 
-### Retrieve Book Catalog
+## 2. Initial Book Persistence Layer
+
+The first implementation stage introduced the `Book` entity and the basic persistence and service layers.
+
+### Book Entity
+
+The `Book` entity contains the following fields:
+
+| Field | Type | Constraints |
+|---|---|---|
+| `id` | `Long` | Primary key |
+| `title` | `String` | Not null |
+| `author` | `String` | Not null |
+| `isbn` | `String` | Not null, unique |
+| `price` | `BigDecimal` | Not null |
+| `description` | `String` | Optional |
+| `coverImage` | `String` | Optional |
+
+### Repository Layer
+
+The initial repository abstraction provided basic operations for storing and retrieving books:
+
+```java
+Book save(Book book);
+List<Book> findAll();
+```
+
+It was implemented using `BookRepository` and `BookRepositoryImpl`.
+
+### Service Layer
+
+The service layer exposed the corresponding book operations:
+
+```java
+Book save(Book book);
+List<Book> findAll();
+```
+
+The implementation was provided by `BookServiceImpl`.
+
+### Initial Application Configuration
+
+During the initial persistence stage, Hibernate was configured with:
+
+```properties
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.jpa.show-sql=true
+```
+
+A `CommandLineRunner` bean was used during the early development stage.
+
+### Test Database
+
+The application uses MySQL for the main database configuration and an in-memory **H2** database for tests and CI builds.
+
+Test configuration:
+
+```properties
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+```
+
+H2 is included as a test-scoped Maven dependency.
+
+---
+
+## 3. Spring Boot Web Layer
+
+The next stage introduced a REST API for working with books.
+
+### DTO Layer
+
+The application uses separate DTOs for API communication:
+
+- `BookDto` — response DTO;
+- `CreateBookRequestDto` — request DTO.
+
+Entity-to-DTO conversion is handled with **MapStruct**.
+
+The service layer communicates through DTOs instead of exposing entities directly.
+
+### Exception Handling
+
+A custom `EntityNotFoundException` is used when a requested book does not exist.
+
+The temporary `CommandLineRunner` used during the initial stage was removed after introducing the web layer.
+
+### Book REST API
+
+#### Get all books
 
 ```http
 GET /api/books
 ```
 
-Returns a list of all books.
+Returns the book catalog.
 
 Example response:
 
@@ -155,13 +202,13 @@ Example response:
 ]
 ```
 
-### Retrieve Book by ID
+#### Get book by ID
 
 ```http
 GET /api/books/{id}
 ```
 
-Returns details of a specific book.
+Returns detailed information about a specific book.
 
 Example response:
 
@@ -177,13 +224,13 @@ Example response:
 }
 ```
 
-If the requested book does not exist, the service throws `EntityNotFoundException`.
-
-### Create a New Book
+#### Create a book
 
 ```http
 POST /api/books
 ```
+
+Creates a new book.
 
 Example request:
 
@@ -198,223 +245,90 @@ Example request:
 }
 ```
 
-Example response:
+### MapStruct and Checkstyle
 
-```json
-{
-  "id": 3,
-  "title": "Sample Book 3",
-  "author": "Author C",
-  "isbn": "9781122334455",
-  "price": 29.99,
-  "description": "Yet another sample book description.",
-  "coverImage": "http://example.com/cover3.jpg"
-}
-```
-
-## Repository Layer
-
-The repository layer provides access to book data.
-
-### `BookRepository`
-
-Implemented methods:
-
-```java
-Book save(Book book);
-
-List<Book> findAll();
-
-Optional<Book> findById(Long id);
-```
-
-### `BookRepositoryImpl`
-
-Provides the repository implementation for book persistence.
-
-## Service Layer
-
-The service layer works with DTOs.
-
-### `BookService`
-
-Implemented methods:
-
-```java
-BookDto save(CreateBookRequestDto bookDto);
-
-List<BookDto> findAll();
-
-BookDto findById(Long id);
-```
-
-### `BookServiceImpl`
-
-Responsibilities:
-
-* converts request DTOs into entities
-* saves books using the repository
-* converts entities into response DTOs
-* retrieves the complete book catalog
-* retrieves a book by ID
-* throws `EntityNotFoundException` when a book is not found
-
-## Database Configuration
-
-The application uses MySQL as the main database.
-
-Important JPA properties:
-
-```properties
-spring.jpa.hibernate.ddl-auto=create-drop
-spring.jpa.show-sql=true
-```
-
-## Test Database
-
-The test environment uses an H2 in-memory database.
-
-Example configuration:
-
-```properties
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=password
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-```
-
-## Code Quality
-
-The project uses Maven Checkstyle.
-
-The Checkstyle configuration is executed during the Maven compile phase.
-
-Generated MapStruct classes are excluded from unnecessary Checkstyle processing by limiting source directories to:
+MapStruct-generated sources are excluded from Checkstyle validation by limiting Checkstyle source directories to:
 
 ```xml
 <sourceDirectories>src/main</sourceDirectories>
 ```
 
-## Continuous Integration
+The Maven compiler is configured with annotation processors for Lombok, Lombok-MapStruct binding, and MapStruct.
 
-GitHub Actions is configured in:
+---
 
-```text
-.github/workflows/ci.yml
+## 4. Spring Boot Data JPA — Current Development Stage
+
+The current development stage focuses on replacing the custom repository implementation with **Spring Data JPA** and introducing database schema versioning.
+
+Planned changes for this stage include:
+
+- migrating `BookRepository` to `JpaRepository`;
+- adding **Liquibase** for database schema management;
+- changing Hibernate schema handling from automatic creation to validation;
+- implementing soft deletion for books;
+- extending `BookService` with update and delete operations;
+- adding the remaining REST endpoints for book management.
+
+Hibernate will use:
+
+```properties
+spring.jpa.hibernate.ddl-auto=validate
 ```
 
-The CI workflow runs on every:
+### Extended Book API
 
-* push
-* pull request
+The existing endpoints remain available:
 
-The workflow:
-
-* checks out the repository
-* configures JDK 17
-* restores the Maven cache
-* runs Maven verification
-
-```bash
-mvn --batch-mode --update-snapshots verify
+```http
+GET /api/books
+GET /api/books/{id}
+POST /api/books
 ```
 
-## Git Workflow
+The Data JPA stage extends the API with the following operations.
 
-The project follows a branch-based Git workflow:
+#### Update a book
 
-1. Create a new branch from `master`
-2. Implement one homework task
-3. Commit the changes
-4. Push the branch
-5. Open a pull request
-6. Merge only after mentor approval
-7. Delete the branch after merging
-
-Each homework assignment is implemented in a separate pull request.
-
-## Running the Application
-
-### Prerequisites
-
-* Java 17
-* Maven
-* MySQL
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/xli1iax/spring-boot-intro.git
-cd spring-boot-intro
+```http
+PUT /api/books/{id}
 ```
 
-### Configure the Database
+Example request:
 
-Update the database connection properties in:
-
-```text
-src/main/resources/application.properties
+```json
+{
+  "title": "Updated Title",
+  "author": "Updated Author",
+  "isbn": "978-1234567890",
+  "price": 19.99,
+  "description": "Updated description",
+  "coverImage": "https://example.com/updated-cover-image.jpg"
+}
 ```
 
-### Run the Application
+#### Delete a book
 
-```bash
-mvn spring-boot:run
+```http
+DELETE /api/books/{id}
 ```
 
-The application will start on:
+Book deletion is planned to use the **soft delete** approach so that deleted records remain stored in the database but are excluded from normal application queries.
 
-```text
-http://localhost:8080
-```
+---
 
-## Running Tests
+## Technology Stack
 
-```bash
-mvn test
-```
-
-## Future Development
-
-The project is planned to grow into a complete online book store with the following entities:
-
-* User
-* Role
-* Book
-* Category
-* ShoppingCart
-* CartItem
-* Order
-* OrderItem
-
-Planned functionality includes:
-
-* registration and authentication
-* book search
-* category management
-* shopping cart
-* order creation
-* order history
-* admin book management
-* admin category management
-* order status management
-
-## What I Practiced
-
-During this project, I practiced:
-
-* building REST APIs with Spring Boot
-* applying layered architecture
-* implementing repository and service patterns
-* working with Spring Data JPA and Hibernate
-* mapping entities and DTOs with MapStruct
-* using Lombok
-* handling missing data with custom exceptions
-* configuring MySQL and H2 databases
-* configuring Maven plugins
-* applying Checkstyle
-* setting up GitHub Actions CI
-* working with feature branches and pull requests
-
-
+- Java 17
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- Hibernate
+- MySQL
+- H2
+- Liquibase
+- MapStruct
+- Lombok
+- Maven
+- Checkstyle
+- GitHub Actions
