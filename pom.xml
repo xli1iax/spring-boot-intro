@@ -98,8 +98,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
 
-    </dependencies>
+</dependencies>
 
     <build>
         <plugins>
@@ -160,6 +164,11 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+            </plugin>
+
         </plugins>
     </build>
 
