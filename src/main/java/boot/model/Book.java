@@ -22,10 +22,12 @@ public class Book {
     private String title;
     @Column(nullable = false, length = 100)
     private String author;
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, unique = true, length = 100)
     private String isbn;
 
+    @Column(nullable = false)
     private BigDecimal price;
+
     private String description;
     private String coverImage;
 }
