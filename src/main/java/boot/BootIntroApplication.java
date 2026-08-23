@@ -13,5 +13,4 @@ public class BootIntroApplication {
     public static void main(String[] args) {
         SpringApplication.run(BootIntroApplication.class, args);
     }
-
 }
